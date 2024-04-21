@@ -1,0 +1,66 @@
+{
+  "version": 3,
+  "targets": {
+    "net8.0": {}
+  },
+  "libraries": {},
+  "projectFileDependencyGroups": {
+    "net8.0": []
+  },
+  "packageFolders": {
+    "/home/deivid/.nuget/packages/": {}
+  },
+  "project": {
+    "version": "1.0.0",
+    "restore": {
+      "projectUniqueName": "/home/deivid/Documents/UFC/5° Semestre/Engenharia de Software/Projeto Final/OdontoManage/OdontoManage/OdontoManage.Infrastructure/OdontoManage.Infrastructure.csproj",
+      "projectName": "OdontoManage.Infrastructure",
+      "projectPath": "/home/deivid/Documents/UFC/5° Semestre/Engenharia de Software/Projeto Final/OdontoManage/OdontoManage/OdontoManage.Infrastructure/OdontoManage.Infrastructure.csproj",
+      "packagesPath": "/home/deivid/.nuget/packages/",
+      "outputPath": "/home/deivid/Documents/UFC/5° Semestre/Engenharia de Software/Projeto Final/OdontoManage/OdontoManage/OdontoManage.Infrastructure/obj/",
+      "projectStyle": "PackageReference",
+      "configFilePaths": [
+        "/home/deivid/.nuget/NuGet/NuGet.Config"
+      ],
+      "originalTargetFrameworks": [
+        "net8.0"
+      ],
+      "sources": {
+        "https://api.nuget.org/v3/index.json": {}
+      },
+      "frameworks": {
+        "net8.0": {
+          "targetAlias": "net8.0",
+          "projectReferences": {}
+        }
+      },
+      "warningProperties": {
+        "warnAsError": [
+          "NU1605"
+        ]
+      }
+    },
+    "frameworks": {
+      "net8.0": {
+        "targetAlias": "net8.0",
+        "imports": [
+          "net461",
+          "net462",
+          "net47",
+          "net471",
+          "net472",
+          "net48",
+          "net481"
+        ],
+        "assetTargetFallback": true,
+        "warn": true,
+        "frameworkReferences": {
+          "Microsoft.NETCore.App": {
+            "privateAssets": "all"
+          }
+        },
+        "runtimeIdentifierGraphPath": "/usr/lib/dotnet/sdk/8.0.103/PortableRuntimeIdentifierGraph.json"
+      }
+    }
+  }
+}
