@@ -6,4 +6,9 @@
         <Nullable>enable</Nullable>
     </PropertyGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\OdontoManage.Core\OdontoManage.Core.csproj" />
+      <ProjectReference Include="..\OdontoManage.Infrastructure\OdontoManage.Infrastructure.csproj" />
+    </ItemGroup>
+
 </Project>

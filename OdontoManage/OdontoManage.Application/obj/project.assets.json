@@ -1,11 +1,49 @@
 {
   "version": 3,
   "targets": {
-    "net8.0": {}
+    "net8.0": {
+      "OdontoManage.Core/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v8.0",
+        "compile": {
+          "bin/placeholder/OdontoManage.Core.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/OdontoManage.Core.dll": {}
+        }
+      },
+      "OdontoManage.Infrastructure/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v8.0",
+        "dependencies": {
+          "OdontoManage.Core": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/OdontoManage.Infrastructure.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/OdontoManage.Infrastructure.dll": {}
+        }
+      }
+    }
   },
-  "libraries": {},
+  "libraries": {
+    "OdontoManage.Core/1.0.0": {
+      "type": "project",
+      "path": "../OdontoManage.Core/OdontoManage.Core.csproj",
+      "msbuildProject": "../OdontoManage.Core/OdontoManage.Core.csproj"
+    },
+    "OdontoManage.Infrastructure/1.0.0": {
+      "type": "project",
+      "path": "../OdontoManage.Infrastructure/OdontoManage.Infrastructure.csproj",
+      "msbuildProject": "../OdontoManage.Infrastructure/OdontoManage.Infrastructure.csproj"
+    }
+  },
   "projectFileDependencyGroups": {
-    "net8.0": []
+    "net8.0": [
+      "OdontoManage.Core >= 1.0.0",
+      "OdontoManage.Infrastructure >= 1.0.0"
+    ]
   },
   "packageFolders": {
     "/home/deivid/.nuget/packages/": {}
@@ -31,7 +69,14 @@
       "frameworks": {
         "net8.0": {
           "targetAlias": "net8.0",
-          "projectReferences": {}
+          "projectReferences": {
+            "/home/deivid/Documents/UFC/5° Semestre/Engenharia de Software/Projeto Final/OdontoManage/OdontoManage/OdontoManage.Core/OdontoManage.Core.csproj": {
+              "projectPath": "/home/deivid/Documents/UFC/5° Semestre/Engenharia de Software/Projeto Final/OdontoManage/OdontoManage/OdontoManage.Core/OdontoManage.Core.csproj"
+            },
+            "/home/deivid/Documents/UFC/5° Semestre/Engenharia de Software/Projeto Final/OdontoManage/OdontoManage/OdontoManage.Infrastructure/OdontoManage.Infrastructure.csproj": {
+              "projectPath": "/home/deivid/Documents/UFC/5° Semestre/Engenharia de Software/Projeto Final/OdontoManage/OdontoManage/OdontoManage.Infrastructure/OdontoManage.Infrastructure.csproj"
+            }
+          }
         }
       },
       "warningProperties": {

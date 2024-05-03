@@ -22,4 +22,10 @@
       <Folder Include="Controllers\" />
     </ItemGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\OdontoManage.Application\OdontoManage.Application.csproj" />
+      <ProjectReference Include="..\OdontoManage.Core\OdontoManage.Core.csproj" />
+      <ProjectReference Include="..\OdontoManage.Infrastructure\OdontoManage.Infrastructure.csproj" />
+    </ItemGroup>
+
 </Project>
