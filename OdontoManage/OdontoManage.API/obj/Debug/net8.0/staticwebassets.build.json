@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "1KtKMdeJBaktxiEfOaHwfHe451uCGfxvnX0+qBQq4LM=",
+  "Source": "OdontoManage.API",
+  "BasePath": "_content/OdontoManage.API",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}
