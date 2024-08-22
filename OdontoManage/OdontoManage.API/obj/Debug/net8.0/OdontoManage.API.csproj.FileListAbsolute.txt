@@ -112,3 +112,12 @@
 /home/deivid/Documents/UFC/5° Semestre/Engenharia de Software/Projeto Final/OdontoManage/OdontoManage/OdontoManage.API/bin/Debug/net8.0/tr/Microsoft.CodeAnalysis.Workspaces.resources.dll
 /home/deivid/Documents/UFC/5° Semestre/Engenharia de Software/Projeto Final/OdontoManage/OdontoManage/OdontoManage.API/bin/Debug/net8.0/zh-Hans/Microsoft.CodeAnalysis.Workspaces.resources.dll
 /home/deivid/Documents/UFC/5° Semestre/Engenharia de Software/Projeto Final/OdontoManage/OdontoManage/OdontoManage.API/bin/Debug/net8.0/zh-Hant/Microsoft.CodeAnalysis.Workspaces.resources.dll
+/home/deivid/Documents/UFC/5° Semestre/Engenharia de Software/Projeto Final/OdontoManage/OdontoManage/OdontoManage.API/bin/Debug/net8.0/Microsoft.AspNetCore.Authentication.JwtBearer.dll
+/home/deivid/Documents/UFC/5° Semestre/Engenharia de Software/Projeto Final/OdontoManage/OdontoManage/OdontoManage.API/bin/Debug/net8.0/Microsoft.IdentityModel.Abstractions.dll
+/home/deivid/Documents/UFC/5° Semestre/Engenharia de Software/Projeto Final/OdontoManage/OdontoManage/OdontoManage.API/bin/Debug/net8.0/Microsoft.IdentityModel.JsonWebTokens.dll
+/home/deivid/Documents/UFC/5° Semestre/Engenharia de Software/Projeto Final/OdontoManage/OdontoManage/OdontoManage.API/bin/Debug/net8.0/Microsoft.IdentityModel.Logging.dll
+/home/deivid/Documents/UFC/5° Semestre/Engenharia de Software/Projeto Final/OdontoManage/OdontoManage/OdontoManage.API/bin/Debug/net8.0/Microsoft.IdentityModel.Protocols.dll
+/home/deivid/Documents/UFC/5° Semestre/Engenharia de Software/Projeto Final/OdontoManage/OdontoManage/OdontoManage.API/bin/Debug/net8.0/Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+/home/deivid/Documents/UFC/5° Semestre/Engenharia de Software/Projeto Final/OdontoManage/OdontoManage/OdontoManage.API/bin/Debug/net8.0/Microsoft.IdentityModel.Tokens.dll
+/home/deivid/Documents/UFC/5° Semestre/Engenharia de Software/Projeto Final/OdontoManage/OdontoManage/OdontoManage.API/bin/Debug/net8.0/System.IdentityModel.Tokens.Jwt.dll
+/home/deivid/Documents/UFC/5° Semestre/Engenharia de Software/Projeto Final/OdontoManage/OdontoManage/OdontoManage.API/bin/Debug/net8.0/System.Security.Permissions.dll

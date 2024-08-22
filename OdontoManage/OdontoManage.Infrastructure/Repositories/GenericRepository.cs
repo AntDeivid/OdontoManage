@@ -31,7 +31,7 @@ public class GenericRepository<T> : IGenericRepository<T> where T : Base
         return _dbContext.Set<T>().FirstOrDefault(t => t.Id == id);
     }
 
-    public virtual T Update(Guid guid, T obj)
+    public virtual T Update(T obj)
     {
         _dbContext.Set<T>().Update(obj);
         _dbContext.SaveChanges();

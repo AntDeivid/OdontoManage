@@ -8,7 +8,7 @@ public interface IGenericRepository<T>
     
     T? GetById(Guid id);
     
-    T Update(Guid guid, T obj);
+    T Update(T obj);
     
     void Delete(Guid id);
 }
