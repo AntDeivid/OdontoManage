@@ -8,6 +8,6 @@ build_property.PlatformNeutralAssembly =
 build_property.EnforceExtendedAnalyzerRules = 
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = OdontoManage.Core
-build_property.ProjectDir = /home/deivid/Documents/UFC/5° Semestre/Engenharia de Software/Projeto Final/OdontoManage/OdontoManage/OdontoManage.Core/
+build_property.ProjectDir = /home/guigui/RiderProjects/OdontoManage/OdontoManage/OdontoManage.Core/
 build_property.EnableComHosting = 
 build_property.EnableGeneratedComInterfaceComImportInterop = 
