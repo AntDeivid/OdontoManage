@@ -12,5 +12,8 @@ public class MappingConfiguration : Profile
             .ReverseMap();
 
         CreateMap<UserCreateDto, User>();
+        
+        CreateMap<Expense, ExpenseDto>()
+            .ReverseMap();
     }
 }

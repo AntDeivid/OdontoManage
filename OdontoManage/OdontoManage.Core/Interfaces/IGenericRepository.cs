@@ -6,6 +6,8 @@ public interface IGenericRepository<T>
     
     IQueryable<T> GetAll();
     
+    IQueryable<T> GetAllPaged(int page, int pageSize);
+    
     T? GetById(Guid id);
     
     T Update(T obj);
