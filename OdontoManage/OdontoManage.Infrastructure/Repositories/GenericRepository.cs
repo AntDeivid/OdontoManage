@@ -43,5 +43,6 @@ public class GenericRepository<T> : IGenericRepository<T> where T : Base
         T? objToDelete = _dbContext.Set<T>().FirstOrDefault(t => t.Id == id);
         if (objToDelete == null) throw new EntryPointNotFoundException();
         _dbContext.Remove(objToDelete);
+        _dbContext.SaveChanges();
     }
 }

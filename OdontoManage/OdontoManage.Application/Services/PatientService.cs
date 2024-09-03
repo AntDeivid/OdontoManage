@@ -91,7 +91,8 @@ public class PatientService : IPatientService
         existing.Gender = patient.Gender;
         existing.Rg = patient.Rg;
         existing.IsForeign = patient.IsForeign;
-        existing.BirthDay = patient.Birthday;
+        var date = new DateOnly(patient.Birthday.Year, patient.Birthday.Month, patient.Birthday.Day);
+        existing.BirthDay = date;
         existing.Document = patient.Document;
         
         var updatePatient = _repository.Update(existing);

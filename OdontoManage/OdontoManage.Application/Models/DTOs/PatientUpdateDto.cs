@@ -13,5 +13,5 @@ public class PatientUpdateDto
     public bool IsForeign { get; set; }
     public string Address { get; set; }
     public string Document { get; set; }
-    public DateOnly Birthday { get; set; }
+    public DateDto Birthday { get; set; }
 }
