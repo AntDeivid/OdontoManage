@@ -1,9 +1,12 @@
 using System.Text;
+using System.Xml;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 using Npgsql;
 using OdontoManage.Application.Interfaces;
 using OdontoManage.Application.Models.DTOs;
@@ -13,6 +16,7 @@ using OdontoManage.Core.Interfaces;
 using OdontoManage.Core.Models;
 using OdontoManage.Infrastructure.Data;
 using OdontoManage.Infrastructure.Repositories;
+using Formatting = Newtonsoft.Json.Formatting;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -117,6 +121,17 @@ builder.Services.AddCors(options =>
 
 });
 
+builder.Services.AddMvc()
+    .AddNewtonsoftJson(options =>
+    {
+        options.SerializerSettings.DateFormatString = "yyyy-MM-dd:HH:mm:ss";
+        options.SerializerSettings.Formatting = Formatting.Indented;
+        options.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
+        options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
+        options.AllowInputFormatterExceptionMessages = true;
+    });
+
+
 /*
  * Dependency injection configuration
  */
@@ -124,6 +139,9 @@ builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IUserService, UserService>();
 
 builder.Services.AddScoped<ITokenService, TokenService>();
+
+builder.Services.AddScoped<IPatientRepository, PatientRepository>();
+builder.Services.AddScoped<IPatientService, PatientService>();
 
 var app = builder.Build();
 

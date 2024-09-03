@@ -1,3 +1,4 @@
+using System.ComponentModel.DataAnnotations;
 using System.Net.Mime;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http.HttpResults;
@@ -25,9 +26,9 @@ public class PatientController(IPatientService patientService) : ControllerBase
       return Ok(response); // trocar para que retorne 201
    }
 
-   [HttpGet("{cpf}")]
+   [HttpGet("by-cpf")]
    [Authorize]
-   public ActionResult<PatientDto> Get([FromBody] string cpf)
+   public ActionResult<PatientDto> Get([FromQuery] [Required] string cpf)
    {
       var response = patientService.GetByCpf(cpf);
       return Ok(response);
@@ -52,7 +53,7 @@ public class PatientController(IPatientService patientService) : ControllerBase
          return BadRequest();
       }
       
-      var response = patientService.Update(patient);
+      var response = patientService.Update(id, patient);
       return Ok(response);
    }
 

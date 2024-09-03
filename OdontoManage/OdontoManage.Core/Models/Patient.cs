@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices.JavaScript;
 using OdontoManage.Core.Enums;
 
@@ -12,13 +13,10 @@ namespace OdontoManage.Core.Models
         [Required]
         public int Age { get; set; }
         
-        [Required]
-        public string Cpf { get; set; }
+        public string? Cpf { get; set; }
         
-        [Required]
-        public string Rg { get; set; }
+        public string? Rg { get; set; }
         
-        [Required]
         public string Phone { get; set; }
         
         [Required]
@@ -30,8 +28,7 @@ namespace OdontoManage.Core.Models
         [Required]
         public string Address { get; set; }
         
-        [Required]
-        public string Document { get; set; }
+        public string? Document { get; set; }
         
         [Required]
         public DateOnly BirthDay { get; set; }

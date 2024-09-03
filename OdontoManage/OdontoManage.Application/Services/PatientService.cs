@@ -1,12 +1,13 @@
 using AutoMapper;
 using Microsoft.Extensions.Logging;
+using OdontoManage.Application.Interfaces;
 using OdontoManage.Application.Models.DTOs;
 using OdontoManage.Core.Interfaces;
 using OdontoManage.Core.Models;
 
 namespace OdontoManage.Application.Services;
 
-public class PatientService
+public class PatientService : IPatientService
 {
     private readonly IPatientRepository _repository; 
     private readonly IMapper _mapper; 
@@ -21,7 +22,9 @@ public class PatientService
 
     public PatientDto Create(PatientCreateDto patient)
     {
+        Console.WriteLine("entrou no service");
         var exist = _repository.GetPatientByCpf(patient.Cpf);
+        Console.WriteLine("passou do getPatientByCpf");
         if (exist != null)
         {
             throw new Exception("Patient already exists");
@@ -32,9 +35,16 @@ public class PatientService
             patient.Cpf = null;
             patient.Rg = null;
         }
+        else
+        {
+            patient.Document = null;
+        }
         
         var patientEntity = _mapper.Map<Patient>(patient);
+        patientEntity.BirthDay = new DateOnly(patient.Birthday.Year, patient.Birthday.Month, patient.Birthday.Day);
+        Console.WriteLine("passou do map");
         var createdPatient = _repository.Save(patientEntity);
+        Console.WriteLine("passou do save");
         return _mapper.Map<PatientDto>(createdPatient);
     }
 
@@ -48,13 +58,13 @@ public class PatientService
         return _mapper.Map<PatientDto>(patient);
     }
 
-    public PatientDto GetByCpf(PatientDto patient)
+    public PatientDto GetByCpf(string cpf)
     {
-        var exits = _repository.GetPatientByCpf(patient.Cpf);
+        var exits = _repository.GetPatientByCpf(cpf);
 
         if (exits == null)
         {
-            throw new Exception($"Patient not found: {patient.Cpf}");
+            throw new Exception($"Patient not found: {cpf}");
         }
         
         return _mapper.Map<PatientDto>(exits);
@@ -66,12 +76,12 @@ public class PatientService
         return _mapper.Map<List<PatientDto>>(patients);
     }
 
-    public PatientDto Update(PatientDto patient)
+    public PatientDto Update(Guid id, PatientUpdateDto patient)
     {
-        var existing = _repository.GetById(patient.Id);
+        var existing = _repository.GetById(id);
         if (existing == null)
         {
-            throw new Exception($"Patient not found: {patient.Id}");
+            throw new Exception($"Patient not found: {id}");
         }
         existing.Name = patient.Name;
         existing.Age = patient.Age;
