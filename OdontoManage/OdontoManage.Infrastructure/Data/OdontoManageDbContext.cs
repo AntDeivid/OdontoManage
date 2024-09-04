@@ -1,3 +1,4 @@
+using System.Text.RegularExpressions;
 using Microsoft.EntityFrameworkCore;
 using OdontoManage.Core.Models;
 
@@ -8,4 +9,5 @@ public class OdontoManageDbContext : DbContext
     public OdontoManageDbContext(DbContextOptions<OdontoManageDbContext> options) : base(options) { }
     
     public DbSet<User>? Users { get; set; }
+    public DbSet<Patient>? Patients { get; set; }
 }

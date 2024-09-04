@@ -19,6 +19,8 @@
 
     <ItemGroup>
       <Compile Remove="Models\DTOs\BaseDto.cs" />
+      <Compile Remove="Models\DTOs\PatientCreateDTO.cs" />
+      <Compile Include="Models\DTOs\PatientCreateDto.cs" />
     </ItemGroup>
 
 </Project>

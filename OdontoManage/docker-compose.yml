@@ -1,0 +1,33 @@
+services:
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: always
+    container_name: odonto-manage
+    ports:
+      - "8080:5217"
+      - "8081:7188"
+    networks:
+      - odonto-net
+    depends_on:
+      - db
+
+  db:
+    image: 'postgres:latest'
+    container_name: odonto-manage-database
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: odonto
+      POSTGRES_PASSWORD: leader066
+      POSTGRES_DB: odonto-manage-dev
+
+networks:
+  odonto-net:
+    driver: bridge
+
+volumes:
+  postgres_data:
