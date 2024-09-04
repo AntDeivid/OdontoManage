@@ -15,5 +15,11 @@ public class MappingConfiguration : Profile
         
         CreateMap<Expense, ExpenseDto>()
             .ReverseMap();
+        
+        CreateMap<Patient, PatientDto>()
+            .ReverseMap();
+
+        CreateMap<PatientCreateDto, Patient>()
+            .ForMember(destinationMember => destinationMember.BirthDay, opt => opt.Ignore());
     }
 }

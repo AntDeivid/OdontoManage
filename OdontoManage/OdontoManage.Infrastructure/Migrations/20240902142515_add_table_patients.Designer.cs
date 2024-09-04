@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using OdontoManage.Infrastructure.Data;
@@ -11,9 +12,11 @@ using OdontoManage.Infrastructure.Data;
 namespace OdontoManage.Infrastructure.Migrations
 {
     [DbContext(typeof(OdontoManageDbContext))]
-    partial class OdontoManageDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240902142515_add_table_patients")]
+    partial class add_table_patients
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -42,12 +45,14 @@ namespace OdontoManage.Infrastructure.Migrations
                         .HasColumnType("date");
 
                     b.Property<string>("Cpf")
+                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Document")
+                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<int>("Gender")
@@ -65,6 +70,7 @@ namespace OdontoManage.Infrastructure.Migrations
                         .HasColumnType("text");
 
                     b.Property<string>("Rg")
+                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<DateTime>("UpdatedAt")
