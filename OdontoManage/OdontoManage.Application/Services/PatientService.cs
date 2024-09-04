@@ -87,13 +87,22 @@ public class PatientService : IPatientService
         existing.Age = patient.Age;
         existing.Address = patient.Address;
         existing.Phone = patient.Phone;
-        existing.Cpf = patient.Cpf;
         existing.Gender = patient.Gender;
-        existing.Rg = patient.Rg;
         existing.IsForeign = patient.IsForeign;
+        if (existing.IsForeign)
+        {
+            existing.Document = patient.Document;
+            existing.Rg = null;
+            existing.Cpf = null;
+        }
+        else
+        {
+            existing.Document = null;  
+            existing.Rg = patient.Rg;
+            existing.Cpf = patient.Cpf;
+        }
         var date = new DateOnly(patient.Birthday.Year, patient.Birthday.Month, patient.Birthday.Day);
         existing.BirthDay = date;
-        existing.Document = patient.Document;
         
         var updatePatient = _repository.Update(existing);
         return _mapper.Map<PatientDto>(updatePatient);
