@@ -21,5 +21,8 @@ public class MappingConfiguration : Profile
 
         CreateMap<PatientCreateDto, Patient>()
             .ForMember(destinationMember => destinationMember.BirthDay, opt => opt.Ignore());
+
+        CreateMap<Dentist, DentistDto>()
+            .ReverseMap();
     }
 }

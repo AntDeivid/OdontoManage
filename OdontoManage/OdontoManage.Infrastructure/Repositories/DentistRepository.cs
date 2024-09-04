@@ -8,5 +8,8 @@ public class DentistRepository : GenericRepository<Dentist>, IDentistRepository
 {
     public DentistRepository(OdontoManageDbContext dbContext) : base(dbContext) { }
     
-    
+    public Dentist GetByCpf(string cpf)
+    {
+        return _dbContext.Dentists.FirstOrDefault(d => d.CPF == cpf);
+    }
 }
