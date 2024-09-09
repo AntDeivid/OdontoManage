@@ -6,12 +6,12 @@ services:
     restart: always
     container_name: odonto-manage
     ports:
-      - "8080:5217"
-      - "8081:7188"
+      - "8080:8080"
     networks:
       - odonto-net
     depends_on:
       - db
+    image: lgmleite/odonto-manage-api:v0.0.3
 
   db:
     image: 'postgres:latest'
@@ -31,3 +31,5 @@ networks:
 
 volumes:
   postgres_data:
+    
+# url do rider: Server=dpg-crd5lgt2ng1s73folq4g-a.oregon-postgres.render.com;Port=5432;Database=odonto_manage_database;User Id=odonto_manage_database_user;Password=A0juCYHCaOPwBNgtoZa2hqJziw13pPt9
