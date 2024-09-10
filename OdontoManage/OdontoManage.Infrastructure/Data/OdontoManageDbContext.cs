@@ -10,4 +10,6 @@ public class OdontoManageDbContext : DbContext
     
     public DbSet<User>? Users { get; set; }
     public DbSet<Patient>? Patients { get; set; }
+    
+    public DbSet<Address>? Addresses { get; set; } 
 }

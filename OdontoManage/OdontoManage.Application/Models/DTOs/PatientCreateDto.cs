@@ -10,7 +10,7 @@ public class PatientCreateDto
     public string Phone { get; set; }
     public Gender Gender { get; set; }
     public bool IsForeign { get; set; }
-    public string Address { get; set; }
+    public AddressCreateDto Address { get; set; }
     
     public string? Document { get; set; }
     

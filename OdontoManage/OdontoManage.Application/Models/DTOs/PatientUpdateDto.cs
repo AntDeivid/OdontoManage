@@ -11,7 +11,7 @@ public class PatientUpdateDto
     public string Phone { get; set; }
     public Gender Gender { get; set; }
     public bool IsForeign { get; set; }
-    public string Address { get; set; }
+    public AddressUpdateDto Address { get; set; }
     public string? Document { get; set; }
     public DateDto Birthday { get; set; }
 }
