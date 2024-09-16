@@ -26,6 +26,14 @@ public class GenericRepository<T> : IGenericRepository<T> where T : Base
         return _dbContext.Set<T>();
     }
 
+    public IQueryable<T> GetAllPaged(int page, int pageSize)
+    {
+        return _dbContext.Set<T>()
+            .OrderByDescending(x => x.CreatedAt)
+            .Skip(page * pageSize)
+            .Take(pageSize);
+    }
+
     public virtual T? GetById(Guid id)
     {
         return _dbContext.Set<T>().FirstOrDefault(t => t.Id == id);

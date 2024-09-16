@@ -23,4 +23,8 @@
       <Compile Include="Models\DTOs\PatientCreateDto.cs" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="Exceptions\" />
+    </ItemGroup>
+
 </Project>

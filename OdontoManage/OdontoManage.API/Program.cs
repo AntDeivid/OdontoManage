@@ -1,5 +1,4 @@
 using System.Text;
-using System.Xml;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
@@ -9,7 +8,6 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using Npgsql;
 using OdontoManage.Application.Interfaces;
-using OdontoManage.Application.Models.DTOs;
 using OdontoManage.Application.Services;
 using OdontoManage.Application.Util;
 using OdontoManage.Core.Interfaces;
@@ -116,6 +114,7 @@ builder.Services.AddCors(options =>
             corsPolicyBuilder.SetIsOriginAllowed((host) => true)
                 .AllowCredentials()
                 .AllowAnyMethod()
+                // .AllowAnyOrigin()
                 .WithMethods("GET", "PUT", "POST", "DELETE")
                 .AllowAnyHeader());
 
@@ -142,6 +141,9 @@ builder.Services.AddScoped<ITokenService, TokenService>();
 
 builder.Services.AddScoped<IPatientRepository, PatientRepository>();
 builder.Services.AddScoped<IPatientService, PatientService>();
+
+builder.Services.AddScoped<IExpenseRepository, ExpenseRepository>();
+builder.Services.AddScoped<IExpenseService, ExpenseService>();
 
 var app = builder.Build();
 
