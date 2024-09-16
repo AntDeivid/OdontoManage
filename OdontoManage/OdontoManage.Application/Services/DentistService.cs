@@ -18,7 +18,7 @@ public class DentistService : IDentistService
         _mapper = mapper;
     }
 
-    public DentistDto Create(DentistDto dentistDto)
+    public DentistDto Create(DentistCreateDto dentistDto)
     {
         var existingDentist = _dentistRepository.GetByCpf(dentistDto.CPF);
         if (existingDentist != null)
@@ -43,7 +43,7 @@ public class DentistService : IDentistService
         return _mapper.Map<List<DentistDto>>(dentists);
     }
 
-    public DentistDto Update(Guid id, DentistDto dentistDto)
+    public DentistDto Update(Guid id, DentistUpdateDto dentistDto)
     {
         var dentist = _dentistRepository.GetById(id);
         if (dentist == null) throw new EntryPointNotFoundException();
