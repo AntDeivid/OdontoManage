@@ -1,4 +1,5 @@
 using System.Net.Mime;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using OdontoManage.Application.Interfaces;
 using OdontoManage.Application.Models.DTOs;
@@ -22,6 +23,7 @@ public class ExpenseController : ControllerBase
     /// <param name="expenseDto"></param>
     /// <returns> Saved expense </returns>
     [HttpPost]
+    [Authorize]
     public ActionResult<ExpenseDto> Create([FromBody] ExpenseCreateDto expenseDto)
     {
         var response = _expenseService.Create(expenseDto);
@@ -33,6 +35,7 @@ public class ExpenseController : ControllerBase
     /// <param name="pageSize"> Page size </param>
     /// <returns> All expenses </returns>
     [HttpGet]
+    [Authorize]
     public ActionResult<List<ExpenseDto>> GetAllPaged([FromQuery] int page, [FromQuery] int pageSize)
     {
         var response = _expenseService.GetAllPaged(page, pageSize);
@@ -44,6 +47,7 @@ public class ExpenseController : ControllerBase
     /// <param name="expenseDto"> Expense data </param>
     /// <returns> Updated expense </returns>
     [HttpPut("{id}")]
+    [Authorize]
     public ActionResult<ExpenseDto> Update(Guid id, [FromBody] ExpenseUpdateDto expenseDto)
     {
         var response = _expenseService.Update(id, expenseDto);
@@ -54,6 +58,7 @@ public class ExpenseController : ControllerBase
     /// <param name="id"> Expense id </param>
     /// <returns> No content </returns>
     [HttpDelete("{id}")]
+    [Authorize]
     public ActionResult Delete(Guid id)
     {
         _expenseService.Delete(id);

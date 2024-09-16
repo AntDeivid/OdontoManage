@@ -63,7 +63,7 @@ builder.Services.AddSwaggerGen(options =>
  */
 builder.Configuration.AddJsonFile("appsettings.json");
 builder.Services.AddDbContext<OdontoManageDbContext>(options =>
-    options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
+    options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")).UseLazyLoadingProxies());
 
 /*
  * Mapping configuration
@@ -153,6 +153,9 @@ builder.Services.AddScoped<IClinicalTreatmentService, ClinicalTreatmentService>(
 
 builder.Services.AddScoped<IItemRepository, ItemRepository>();
 builder.Services.AddScoped<IItemService, ItemService>();
+
+builder.Services.AddScoped<ITreatmentRepository, TreatmentRepository>();
+builder.Services.AddScoped<ITreatmentService, TreatmentService>();
 
 var app = builder.Build();
 

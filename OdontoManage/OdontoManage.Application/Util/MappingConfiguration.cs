@@ -27,7 +27,14 @@ public class MappingConfiguration : Profile
         CreateMap<DentistUpdateDto, Dentist>();
 
         CreateMap<Treatment, TreatmentDto>()
-            .ReverseMap();
+            .ForMember(destinationMember => destinationMember.InstallmentDueDate, opt => opt.Ignore())
+            .ForMember(destinationMember => destinationMember.PatientId, opt => opt.MapFrom(src => src.Patient.Id))
+            .ForMember(destinationMember => destinationMember.DentistId, opt => opt.MapFrom(src => src.Dentist.Id))
+            .ForMember(destinationMember => destinationMember.ClinicalTreatmentId, opt => opt.MapFrom(src => src.ClinicalTreatment.Id))
+            .ReverseMap()
+            .ForMember(src => src.Patient, opt => opt.Ignore())
+            .ForMember(src => src.Dentist, opt => opt.Ignore())
+            .ForMember(src => src.ClinicalTreatment, opt => opt.Ignore());
 
         CreateMap<TreatmentCreateDto, Treatment>()
             .ForMember(destinationMember => destinationMember.InstallmentDueDate, opt => opt.Ignore());

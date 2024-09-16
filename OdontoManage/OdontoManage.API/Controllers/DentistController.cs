@@ -1,4 +1,5 @@
 using System.Net.Mime;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using OdontoManage.Application.Interfaces;
 using OdontoManage.Application.Models.DTOs;
@@ -23,6 +24,7 @@ public class DentistController : ControllerBase
     /// <param name="dentistDto"></param>
     /// <returns> Saved dentist </returns>
     [HttpPost]
+    [Authorize]
     public ActionResult<DentistDto> Create([FromBody] DentistCreateDto dentistDto)
     {
         var response = _dentistService.Create(dentistDto);
@@ -34,6 +36,7 @@ public class DentistController : ControllerBase
     /// <param name="pageSize"> Page size </param>
     /// <returns> All dentists </returns>
     [HttpGet("all-no-pagination")]
+    [Authorize]
     public ActionResult<List<DentistDto>> GetAllPaged([FromQuery] int page, [FromQuery] int pageSize)
     {
         var response = _dentistService.GetAllPaged(page, pageSize);
@@ -43,6 +46,7 @@ public class DentistController : ControllerBase
     /// <summary> Get all dentists, without pagination </summary>
     /// <returns> All dentists </returns>
     [HttpGet]
+    [Authorize]
     public ActionResult<List<DentistDto>> GetAll()
     {
         var response = _dentistService.GetAll();
@@ -54,6 +58,7 @@ public class DentistController : ControllerBase
     /// <param name="dentistDto"> Dentist data </param>
     /// <returns> Updated dentist </returns>
     [HttpPut("{id}")]
+    [Authorize]
     public ActionResult<DentistDto> Update(Guid id, [FromBody] DentistUpdateDto dentistDto)
     {
         var response = _dentistService.Update(id, dentistDto);
@@ -64,6 +69,7 @@ public class DentistController : ControllerBase
     /// <param name="id"> Dentist id </param>
     /// <returns> No content </returns>
     [HttpDelete("{id}")]
+    [Authorize]
     public ActionResult Delete(Guid id)
     {
         _dentistService.Delete(id);

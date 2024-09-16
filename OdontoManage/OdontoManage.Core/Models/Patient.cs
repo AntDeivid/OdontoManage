@@ -32,6 +32,6 @@ namespace OdontoManage.Core.Models
         public DateOnly BirthDay { get; set; }
         
         [Required]
-        public Address Address { get; set; }
+        public virtual Address Address { get; set; }
     }
 }

@@ -1,4 +1,5 @@
 using System.Net.Mime;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using OdontoManage.Application.Interfaces;
 using OdontoManage.Application.Models.DTOs;
@@ -23,6 +24,7 @@ public class ClinicalTreatmentController : ControllerBase
     /// <param name="clinicalTreatmentDto"></param>
     /// <returns> Saved clinical treatment </returns>
     [HttpPost]
+    [Authorize]
     public ActionResult<ClinicalTreatmentDto> Create([FromBody] ClinicalTreatmentDto clinicalTreatmentDto)
     {
         var response = _clinicalTreatmentService.Create(clinicalTreatmentDto);
@@ -32,6 +34,7 @@ public class ClinicalTreatmentController : ControllerBase
     /// <summary> Get all clinical treatments </summary>
     /// <returns> All clinical treatments </returns>
     [HttpGet]
+    [Authorize]
     public ActionResult<List<ClinicalTreatmentDto>> GetAll()
     {
         var response = _clinicalTreatmentService.GetAll();
@@ -42,6 +45,7 @@ public class ClinicalTreatmentController : ControllerBase
     /// <param name="id"> Clinical treatment id </param>
     /// <returns> Clinical treatment </returns>
     [HttpGet("{id}")]
+    [Authorize]
     public ActionResult<ClinicalTreatmentDto> GetById(Guid id)
     {
         var response = _clinicalTreatmentService.GetById(id);
@@ -53,6 +57,7 @@ public class ClinicalTreatmentController : ControllerBase
     /// <param name="clinicalTreatmentDto"> Clinical treatment data </param>
     /// <returns> Updated clinical treatment </returns>
     [HttpPut("{id}")]
+    [Authorize]
     public ActionResult<ClinicalTreatmentDto> Update(Guid id, [FromBody] ClinicalTreatmentDto clinicalTreatmentDto)
     {
         var response = _clinicalTreatmentService.Update(id, clinicalTreatmentDto);
@@ -63,6 +68,7 @@ public class ClinicalTreatmentController : ControllerBase
     /// <param name="id"> Clinical treatment id </param>
     /// <returns> No content </returns>
     [HttpDelete("{id}")]
+    [Authorize]
     public ActionResult Delete(Guid id)
     {
         _clinicalTreatmentService.Delete(id);
