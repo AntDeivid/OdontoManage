@@ -157,6 +157,9 @@ builder.Services.AddScoped<IItemService, ItemService>();
 builder.Services.AddScoped<ITreatmentRepository, TreatmentRepository>();
 builder.Services.AddScoped<ITreatmentService, TreatmentService>();
 
+builder.Services.AddScoped<IAddressRespository, AddressRepository>();
+builder.Services.AddScoped<IAddressService, AddressService>();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
