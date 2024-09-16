@@ -41,6 +41,12 @@ public class OdontoManageDbContext : DbContext
             .WithMany()
             .OnDelete(DeleteBehavior.Restrict);
 
+        modelBuilder.Entity<Patient>()
+            .HasOne(p => p.Address)
+            .WithOne()
+            .OnDelete(DeleteBehavior.Restrict);
+            
+
         // Configurações adicionais
         modelBuilder.Entity<Patient>()
             .Property(p => p.BirthDay)
