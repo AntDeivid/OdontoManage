@@ -6,7 +6,7 @@ public interface IExpenseService
 {
     ExpenseDto Create(ExpenseCreateDto expenseDto);
     List<ExpenseDto> GetAllPaged(int page, int pageSize);
-    ExpenseDto Update(Guid id, ExpenseDto expenseDto);
+    ExpenseDto Update(Guid id, ExpenseUpdateDto expenseDto);
     void Delete(Guid id);
     
 }

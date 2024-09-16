@@ -42,5 +42,9 @@ public class MappingConfiguration : Profile
         
         CreateMap<Expense, ExpenseDto>()
             .ReverseMap();
+        
+        CreateMap<ExpenseUpdateDto, Expense>()
+            .ForMember(destinationMember => destinationMember.InstallmentDueDate, opt => opt.Ignore())
+            .ForMember(destinationMember => destinationMember.PaymentDate, opt => opt.Ignore());
     }
 }

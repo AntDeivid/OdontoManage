@@ -30,7 +30,7 @@ public class GenericRepository<T> : IGenericRepository<T> where T : Base
     {
         return _dbContext.Set<T>()
             .OrderByDescending(x => x.CreatedAt)
-            .Skip(page * pageSize)
+            .Skip((page - 1) * pageSize)
             .Take(pageSize);
     }
 

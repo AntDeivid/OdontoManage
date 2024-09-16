@@ -36,7 +36,7 @@ public class ExpenseService : IExpenseService
         return _mapper.Map<List<ExpenseDto>>(expenses);
     }
 
-    public ExpenseDto Update(Guid id, ExpenseDto expenseDto)
+    public ExpenseDto Update(Guid id, ExpenseUpdateDto expenseDto)
     {
         var expense = _expenseRepository.GetById(id);
         if (expense == null) throw new EntryPointNotFoundException();
@@ -51,7 +51,7 @@ public class ExpenseService : IExpenseService
         expense.Paid = expenseDto.Paid;
         expense.PaymentMethod = expenseDto.PaymentMethod;
         var dueDate = new DateOnly(expenseDto.InstallmentDueDate.Year, expenseDto.InstallmentDueDate.Month, expenseDto.InstallmentDueDate.Day);
-        var paymentDate = new DateOnly(expenseDto.PaymentDate?.Year ?? 0, expenseDto.PaymentDate?.Month ?? 0, expenseDto.PaymentDate?.Day ?? 0);
+        var paymentDate = expenseDto.PaymentDate == null ? new DateOnly() : new DateOnly(expenseDto.PaymentDate?.Year ?? 0, expenseDto.PaymentDate?.Month ?? 0, expenseDto.PaymentDate?.Day ?? 0);
         expense.InstallmentDueDate = dueDate;
         expense.PaymentDate = paymentDate;
         var updatedExpense = _expenseRepository.Update(expense);

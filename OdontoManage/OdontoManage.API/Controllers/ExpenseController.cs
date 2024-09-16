@@ -38,13 +38,13 @@ public class ExpenseController : ControllerBase
         var response = _expenseService.GetAllPaged(page, pageSize);
         return Ok(response);
     }
-    
+
     /// <summary> Update an expense </summary>
     /// <param name="id"> Expense id </param>
     /// <param name="expenseDto"> Expense data </param>
     /// <returns> Updated expense </returns>
     [HttpPut("{id}")]
-    public ActionResult<ExpenseDto> Update(Guid id, [FromBody] ExpenseDto expenseDto)
+    public ActionResult<ExpenseDto> Update(Guid id, [FromBody] ExpenseUpdateDto expenseDto)
     {
         var response = _expenseService.Update(id, expenseDto);
         return Ok(response);
