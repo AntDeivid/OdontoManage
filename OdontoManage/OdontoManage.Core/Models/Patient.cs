@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices.JavaScript;
 using OdontoManage.Core.Enums;
@@ -32,6 +33,7 @@ namespace OdontoManage.Core.Models
         public DateOnly BirthDay { get; set; }
         
         [Required]
+        [ForeignKey("AddressId")]
         public virtual Address Address { get; set; }
     }
 }

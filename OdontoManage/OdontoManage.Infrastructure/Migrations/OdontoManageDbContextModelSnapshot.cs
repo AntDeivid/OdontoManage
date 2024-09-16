@@ -18,6 +18,9 @@ namespace OdontoManage.Infrastructure.Migrations
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("ProductVersion", "8.0.8")
+                .HasAnnotation("Proxies:ChangeTracking", false)
+                .HasAnnotation("Proxies:CheckEquality", false)
+                .HasAnnotation("Proxies:LazyLoading", true)
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
@@ -25,6 +28,7 @@ namespace OdontoManage.Infrastructure.Migrations
             modelBuilder.Entity("OdontoManage.Core.Models.Address", b =>
                 {
                     b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
                     b.Property<bool>("Active")
@@ -235,6 +239,9 @@ namespace OdontoManage.Infrastructure.Migrations
                     b.Property<bool>("Active")
                         .HasColumnType("boolean");
 
+                    b.Property<Guid>("AddressId")
+                        .HasColumnType("uuid");
+
                     b.Property<int>("Age")
                         .HasColumnType("integer");
 
@@ -271,6 +278,9 @@ namespace OdontoManage.Infrastructure.Migrations
                         .HasColumnType("timestamp with time zone");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("AddressId")
+                        .IsUnique();
 
                     b.ToTable("Patients");
                 });
@@ -400,13 +410,15 @@ namespace OdontoManage.Infrastructure.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("OdontoManage.Core.Models.Address", b =>
+            modelBuilder.Entity("OdontoManage.Core.Models.Patient", b =>
                 {
-                    b.HasOne("OdontoManage.Core.Models.Patient", null)
-                        .WithOne("Address")
-                        .HasForeignKey("OdontoManage.Core.Models.Address", "Id")
-                        .OnDelete(DeleteBehavior.Restrict)
+                    b.HasOne("OdontoManage.Core.Models.Address", "Address")
+                        .WithOne()
+                        .HasForeignKey("OdontoManage.Core.Models.Patient", "AddressId")
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Address");
                 });
 
             modelBuilder.Entity("OdontoManage.Core.Models.Revenue", b =>
@@ -450,12 +462,6 @@ namespace OdontoManage.Infrastructure.Migrations
                     b.Navigation("Dentist");
 
                     b.Navigation("Patient");
-                });
-
-            modelBuilder.Entity("OdontoManage.Core.Models.Patient", b =>
-                {
-                    b.Navigation("Address")
-                        .IsRequired();
                 });
 
             modelBuilder.Entity("OdontoManage.Core.Models.Revenue", b =>

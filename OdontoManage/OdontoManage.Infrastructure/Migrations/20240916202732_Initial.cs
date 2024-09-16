@@ -12,6 +12,25 @@ namespace OdontoManage.Infrastructure.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
+                name: "Addresses",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    Street = table.Column<string>(type: "text", nullable: false),
+                    Neighborhood = table.Column<string>(type: "text", nullable: false),
+                    City = table.Column<string>(type: "text", nullable: false),
+                    State = table.Column<string>(type: "text", nullable: false),
+                    ZipCode = table.Column<string>(type: "text", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    UpdatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    Active = table.Column<bool>(type: "boolean", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Addresses", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "ClinicalTreatments",
                 columns: table => new
                 {
@@ -76,29 +95,6 @@ namespace OdontoManage.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Patients",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    Name = table.Column<string>(type: "text", nullable: false),
-                    Age = table.Column<int>(type: "integer", nullable: false),
-                    Cpf = table.Column<string>(type: "text", nullable: true),
-                    Rg = table.Column<string>(type: "text", nullable: true),
-                    Phone = table.Column<string>(type: "text", nullable: false),
-                    Gender = table.Column<int>(type: "integer", nullable: false),
-                    IsForeign = table.Column<bool>(type: "boolean", nullable: false),
-                    Document = table.Column<string>(type: "text", nullable: true),
-                    BirthDay = table.Column<DateOnly>(type: "date", nullable: false),
-                    CreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    UpdatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    Active = table.Column<bool>(type: "boolean", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Patients", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Stocks",
                 columns: table => new
                 {
@@ -134,28 +130,33 @@ namespace OdontoManage.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Addresses",
+                name: "Patients",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    Street = table.Column<string>(type: "text", nullable: false),
-                    Neighborhood = table.Column<string>(type: "text", nullable: false),
-                    City = table.Column<string>(type: "text", nullable: false),
-                    State = table.Column<string>(type: "text", nullable: false),
-                    ZipCode = table.Column<string>(type: "text", nullable: false),
+                    Name = table.Column<string>(type: "text", nullable: false),
+                    Age = table.Column<int>(type: "integer", nullable: false),
+                    Cpf = table.Column<string>(type: "text", nullable: true),
+                    Rg = table.Column<string>(type: "text", nullable: true),
+                    Phone = table.Column<string>(type: "text", nullable: false),
+                    Gender = table.Column<int>(type: "integer", nullable: false),
+                    IsForeign = table.Column<bool>(type: "boolean", nullable: false),
+                    Document = table.Column<string>(type: "text", nullable: true),
+                    BirthDay = table.Column<DateOnly>(type: "date", nullable: false),
+                    AddressId = table.Column<Guid>(type: "uuid", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     UpdatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     Active = table.Column<bool>(type: "boolean", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Addresses", x => x.Id);
+                    table.PrimaryKey("PK_Patients", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Addresses_Patients_Id",
-                        column: x => x.Id,
-                        principalTable: "Patients",
+                        name: "FK_Patients_Addresses_AddressId",
+                        column: x => x.AddressId,
+                        principalTable: "Addresses",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -230,6 +231,12 @@ namespace OdontoManage.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateIndex(
+                name: "IX_Patients_AddressId",
+                table: "Patients",
+                column: "AddressId",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Revenues_PatientId",
                 table: "Revenues",
                 column: "PatientId");
@@ -259,9 +266,6 @@ namespace OdontoManage.Infrastructure.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Addresses");
-
-            migrationBuilder.DropTable(
                 name: "Expenses");
 
             migrationBuilder.DropTable(
@@ -284,6 +288,9 @@ namespace OdontoManage.Infrastructure.Migrations
 
             migrationBuilder.DropTable(
                 name: "Patients");
+
+            migrationBuilder.DropTable(
+                name: "Addresses");
         }
     }
 }

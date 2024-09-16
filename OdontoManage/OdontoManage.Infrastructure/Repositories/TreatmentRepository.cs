@@ -14,7 +14,9 @@ public class TreatmentRepository : GenericRepository<Treatment>, ITreatmentRepos
     {
         return _dbContext.Treatments!
             .Where(t => t.Patient.Id == patientId)
-            // .Include(p => p.U)
+            .Include(t => t.Patient)
+            .Include(t => t.ClinicalTreatment)
+            .Include(t => t.Dentist)
             .Skip((page - 1) * pageSize)
             .Take(pageSize);
     }
