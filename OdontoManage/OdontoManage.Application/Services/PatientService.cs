@@ -10,6 +10,7 @@ namespace OdontoManage.Application.Services;
 public class PatientService : IPatientService
 {
     private readonly IPatientRepository _repository; 
+    private readonly IAddressRespository _addressRepository;
     private readonly IMapper _mapper; 
     private readonly ILogger<PatientService> _logger;
 
@@ -45,6 +46,18 @@ public class PatientService : IPatientService
         Console.WriteLine("passou do map");
         var createdPatient = _repository.Save(patientEntity);
         Console.WriteLine("passou do save");
+        
+        var exist_address = _addressRepository.GetAddressByCode(patient.Address.ZipCode);
+
+        if (exist_address != null)
+        {
+            throw new Exception($"Address already exists");
+        }
+        
+        var entity = _mapper.Map<Address>(patient.Address);
+        
+        var createdAddress = _addressRepository.Save(entity);
+        
         return _mapper.Map<PatientDto>(createdPatient);
     }
 
@@ -108,6 +121,19 @@ public class PatientService : IPatientService
         var date = new DateOnly(patient.Birthday.Year, patient.Birthday.Month, patient.Birthday.Day);
         existing.BirthDay = date;
         
+        var exist = _addressRepository.GetById(id);
+        if (exist == null)
+        {
+            throw new Exception($"Address not found");
+        }
+                
+        exist.ZipCode = patient.Address.ZipCode;
+        exist.City = patient.Address.City;
+        exist.Street = patient.Address.Street;
+        exist.Neighborhood = patient.Address.Neighborhood;
+        exist.State = patient.Address.State;
+                
+        var updatedAddress = _addressRepository.Update(exist);
         var updatePatient = _repository.Update(existing);
         return _mapper.Map<PatientDto>(updatePatient);
     }
@@ -121,4 +147,4 @@ public class PatientService : IPatientService
         }
         _repository.Delete(id);
     }
-} 
+}

@@ -7,43 +7,41 @@ using OdontoManage.Application.Models.DTOs;
 
 namespace OdontoManage.API.Controllers;
 
-[Route("itens")]
+[Route("adresses")]
 [Produces(MediaTypeNames.Application.Json)]
 [Consumes(MediaTypeNames.Application.Json)]
 [ApiController]
 
-
-public class ItemController (IItemService service) : ControllerBase
+public class AddressController (IAddressService service) :ControllerBase
 {
     [HttpPost]
     [Authorize]
 
-    public ActionResult<ItemDto> Post([FromBody] ItemCreateDto item)
+    public ActionResult<AddressDto> Post([FromBody] AddressCreateDto address)
     {
-        var response =  service.Create(item);
+        var response = service.Create(address);
         return Ok(response);
     }
-    
-    [HttpGet("by-name")]
+
+    [HttpGet("by-zipcode")]
     [Authorize]
-    public ActionResult<ItemDto> Get([FromQuery] [Required] string name)
+    public ActionResult<AddressDto> Get(string zipCode)
     {
-        var response = service.GetByName(name);
+        var response = service.GetByCode(zipCode);
         return Ok(response);
     }
     
     [HttpGet("{id}")]
     [Authorize]
-    public ActionResult<ItemDto> Get(Guid id)
+    public ActionResult<AddressDto> Get([FromQuery] [Required] Guid id)
     {
         var response = service.GetById(id);
         return Ok(response);
     }
-
     
     [HttpGet]
     [Authorize]
-    public ActionResult<List<ItemDto>> GetAll()
+    public ActionResult<List<AddressDto>> GetAll()
     {
         var response = service.GetAll();
         return Ok(response);
@@ -51,7 +49,7 @@ public class ItemController (IItemService service) : ControllerBase
     
     [HttpPut("{id}")]
     [Authorize]
-    public ActionResult<ItemDto> Put(Guid id, [FromBody] ItemUpdateDto item)
+    public ActionResult<AddressDto> Put(Guid id, [FromBody] AddressUpdateDto item)
     {
         var exist = service.GetById(id);
 
