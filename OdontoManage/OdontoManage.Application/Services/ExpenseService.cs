@@ -18,17 +18,21 @@ public class ExpenseService : IExpenseService
         _mapper = mapper;
     }
 
-    public ExpenseDto Create(ExpenseDto expenseDto)
+    public ExpenseDto Create(ExpenseCreateDto expenseDto)
     {
         var expense = _mapper.Map<Expense>(expenseDto);
         expense.Id = Guid.NewGuid();
+        var dueDate = new DateOnly(expenseDto.InstallmentDueDate.Year, expenseDto.InstallmentDueDate.Month, expenseDto.InstallmentDueDate.Day);
+        var paymentDate = expenseDto.PaymentDate == null ? new DateOnly() : new DateOnly(expenseDto.PaymentDate?.Year ?? 0, expenseDto.PaymentDate?.Month ?? 0, expenseDto.PaymentDate?.Day ?? 0);
+        expense.InstallmentDueDate = dueDate;
+        expense.PaymentDate = paymentDate;
         var createdExpense = _expenseRepository.Save(expense);
         return _mapper.Map<ExpenseDto>(createdExpense);
     }
 
     public List<ExpenseDto> GetAllPaged(int page, int pageSize)
     {
-        var expenses = _expenseRepository.GetAllPaged(page, pageSize);
+        var expenses = _expenseRepository.GetAllPaged(page, pageSize).ToList();
         return _mapper.Map<List<ExpenseDto>>(expenses);
     }
 
@@ -38,7 +42,6 @@ public class ExpenseService : IExpenseService
         if (expense == null) throw new EntryPointNotFoundException();
         expense.Value = expenseDto.Value;
         expense.Description = expenseDto.Description;
-        expense.InstallmentDueDate = expenseDto.InstallmentDueDate;
         expense.Category = expenseDto.Category;
         expense.Box = expenseDto.Box;
         expense.Observation = expenseDto.Observation;
@@ -46,8 +49,11 @@ public class ExpenseService : IExpenseService
         expense.RepetitionType = expenseDto.RepetitionType;
         expense.RepetitionQuantity = expenseDto.RepetitionQuantity;
         expense.Paid = expenseDto.Paid;
-        expense.PaymentDate = expenseDto.PaymentDate;
         expense.PaymentMethod = expenseDto.PaymentMethod;
+        var dueDate = new DateOnly(expenseDto.InstallmentDueDate.Year, expenseDto.InstallmentDueDate.Month, expenseDto.InstallmentDueDate.Day);
+        var paymentDate = new DateOnly(expenseDto.PaymentDate?.Year ?? 0, expenseDto.PaymentDate?.Month ?? 0, expenseDto.PaymentDate?.Day ?? 0);
+        expense.InstallmentDueDate = dueDate;
+        expense.PaymentDate = paymentDate;
         var updatedExpense = _expenseRepository.Update(expense);
         return _mapper.Map<ExpenseDto>(updatedExpense);
     }

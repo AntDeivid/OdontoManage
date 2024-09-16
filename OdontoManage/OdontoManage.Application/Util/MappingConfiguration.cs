@@ -25,7 +25,8 @@ public class MappingConfiguration : Profile
         CreateMap<Treatment, TreatmentDto>()
             .ReverseMap();
 
-        CreateMap<TreatmentCreateDto, Treatment>();
+        CreateMap<TreatmentCreateDto, Treatment>()
+            .ForMember(destinationMember => destinationMember.InstallmentDueDate, opt => opt.Ignore());
 
         CreateMap<ClinicalTreatment, ClinicalTreatmentDto>()
             .ReverseMap();
@@ -34,5 +35,12 @@ public class MappingConfiguration : Profile
 
         CreateMap<ItemCreateDto, Item>()
             .ForMember(destinationMember => destinationMember.Price, opt => opt.Ignore());
+
+        CreateMap<ExpenseCreateDto, Expense>()
+            .ForMember(destinationMember => destinationMember.InstallmentDueDate, opt => opt.Ignore())
+            .ForMember(destinationMember => destinationMember.PaymentDate, opt => opt.Ignore());
+        
+        CreateMap<Expense, ExpenseDto>()
+            .ReverseMap();
     }
 }

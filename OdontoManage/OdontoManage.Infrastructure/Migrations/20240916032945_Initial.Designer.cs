@@ -12,8 +12,8 @@ using OdontoManage.Infrastructure.Data;
 namespace OdontoManage.Infrastructure.Migrations
 {
     [DbContext(typeof(OdontoManageDbContext))]
-    [Migration("20240910005957_relacoes")]
-    partial class relacoes
+    [Migration("20240916032945_Initial")]
+    partial class Initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -24,6 +24,45 @@ namespace OdontoManage.Infrastructure.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
+
+            modelBuilder.Entity("OdontoManage.Core.Models.Address", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .HasColumnType("uuid");
+
+                    b.Property<bool>("Active")
+                        .HasColumnType("boolean");
+
+                    b.Property<string>("City")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("Neighborhood")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("State")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Street")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("ZipCode")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Addresses");
+                });
 
             modelBuilder.Entity("OdontoManage.Core.Models.ClinicalTreatment", b =>
                 {
@@ -37,6 +76,9 @@ namespace OdontoManage.Infrastructure.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("timestamp with time zone");
 
+                    b.Property<double>("DefaultValue")
+                        .HasColumnType("double precision");
+
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasColumnType("text");
@@ -47,9 +89,6 @@ namespace OdontoManage.Infrastructure.Migrations
 
                     b.Property<DateTime>("UpdatedAt")
                         .HasColumnType("timestamp with time zone");
-
-                    b.Property<double>("Value")
-                        .HasColumnType("double precision");
 
                     b.HasKey("Id");
 
@@ -160,7 +199,7 @@ namespace OdontoManage.Infrastructure.Migrations
                     b.ToTable("Expenses");
                 });
 
-            modelBuilder.Entity("OdontoManage.Core.Models.Patient", b =>
+            modelBuilder.Entity("OdontoManage.Core.Models.Item", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -169,9 +208,35 @@ namespace OdontoManage.Infrastructure.Migrations
                     b.Property<bool>("Active")
                         .HasColumnType("boolean");
 
-                    b.Property<string>("Address")
+                    b.Property<long>("Amount")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("text");
+
+                    b.Property<float>("Price")
+                        .HasColumnType("real");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Stocks");
+                });
+
+            modelBuilder.Entity("OdontoManage.Core.Models.Patient", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<bool>("Active")
+                        .HasColumnType("boolean");
 
                     b.Property<int>("Age")
                         .HasColumnType("integer");
@@ -186,6 +251,7 @@ namespace OdontoManage.Infrastructure.Migrations
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Document")
+                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<int>("Gender")
@@ -262,6 +328,15 @@ namespace OdontoManage.Infrastructure.Migrations
                     b.Property<Guid>("DentistId")
                         .HasColumnType("uuid");
 
+                    b.Property<DateOnly>("InstallmentDueDate")
+                        .HasColumnType("date");
+
+                    b.Property<bool>("Paid")
+                        .HasColumnType("boolean");
+
+                    b.Property<Guid>("PatientId")
+                        .HasColumnType("uuid");
+
                     b.Property<int>("Plan")
                         .HasColumnType("integer");
 
@@ -285,6 +360,8 @@ namespace OdontoManage.Infrastructure.Migrations
                     b.HasIndex("ClinicalTreatmentId");
 
                     b.HasIndex("DentistId");
+
+                    b.HasIndex("PatientId");
 
                     b.HasIndex("RevenueId");
 
@@ -327,12 +404,21 @@ namespace OdontoManage.Infrastructure.Migrations
                     b.ToTable("Users");
                 });
 
+            modelBuilder.Entity("OdontoManage.Core.Models.Address", b =>
+                {
+                    b.HasOne("OdontoManage.Core.Models.Patient", null)
+                        .WithOne("Address")
+                        .HasForeignKey("OdontoManage.Core.Models.Address", "Id")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("OdontoManage.Core.Models.Revenue", b =>
                 {
                     b.HasOne("OdontoManage.Core.Models.Patient", "Patient")
                         .WithMany()
                         .HasForeignKey("PatientId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Patient");
@@ -352,6 +438,12 @@ namespace OdontoManage.Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
+                    b.HasOne("OdontoManage.Core.Models.Patient", "Patient")
+                        .WithMany()
+                        .HasForeignKey("PatientId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
                     b.HasOne("OdontoManage.Core.Models.Revenue", null)
                         .WithMany("Treatments")
                         .HasForeignKey("RevenueId")
@@ -360,6 +452,14 @@ namespace OdontoManage.Infrastructure.Migrations
                     b.Navigation("ClinicalTreatment");
 
                     b.Navigation("Dentist");
+
+                    b.Navigation("Patient");
+                });
+
+            modelBuilder.Entity("OdontoManage.Core.Models.Patient", b =>
+                {
+                    b.Navigation("Address")
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("OdontoManage.Core.Models.Revenue", b =>

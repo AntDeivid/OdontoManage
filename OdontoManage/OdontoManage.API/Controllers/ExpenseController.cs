@@ -22,7 +22,7 @@ public class ExpenseController : ControllerBase
     /// <param name="expenseDto"></param>
     /// <returns> Saved expense </returns>
     [HttpPost]
-    public ActionResult<ExpenseDto> Create([FromBody] ExpenseDto expenseDto)
+    public ActionResult<ExpenseDto> Create([FromBody] ExpenseCreateDto expenseDto)
     {
         var response = _expenseService.Create(expenseDto);
         return Ok(response);
