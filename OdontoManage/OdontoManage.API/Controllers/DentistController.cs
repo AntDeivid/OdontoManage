@@ -23,7 +23,7 @@ public class DentistController : ControllerBase
     /// <param name="dentistDto"></param>
     /// <returns> Saved dentist </returns>
     [HttpPost]
-    public ActionResult<DentistDto> Create([FromBody] DentistDto dentistDto)
+    public ActionResult<DentistDto> Create([FromBody] DentistCreateDto dentistDto)
     {
         var response = _dentistService.Create(dentistDto);
         return Ok(response);
@@ -54,7 +54,7 @@ public class DentistController : ControllerBase
     /// <param name="dentistDto"> Dentist data </param>
     /// <returns> Updated dentist </returns>
     [HttpPut("{id}")]
-    public ActionResult<DentistDto> Update(Guid id, [FromBody] DentistDto dentistDto)
+    public ActionResult<DentistDto> Update(Guid id, [FromBody] DentistUpdateDto dentistDto)
     {
         var response = _dentistService.Update(id, dentistDto);
         return Ok(response);
