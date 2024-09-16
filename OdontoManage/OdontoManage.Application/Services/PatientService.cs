@@ -143,7 +143,7 @@ public class PatientService : IPatientService
         var date = new DateOnly(patient.Birthday.Year, patient.Birthday.Month, patient.Birthday.Day);
         existing.BirthDay = date;
         
-        var exist = _addressRepository.GetById(id);
+        var exist = _addressRepository.GetAddressByCode(existing.Address.ZipCode);
         if (exist == null)
         {
             throw new Exception($"Address not found");
