@@ -24,5 +24,13 @@ public class MappingConfiguration : Profile
 
         CreateMap<Dentist, DentistDto>()
             .ReverseMap();
+
+        CreateMap<Treatment, TreatmentDto>()
+            .ReverseMap();
+
+        CreateMap<TreatmentCreateDto, Treatment>();
+
+        CreateMap<ClinicalTreatment, ClinicalTreatmentDto>()
+            .ReverseMap();
     }
 }
