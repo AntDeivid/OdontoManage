@@ -1,3 +1,4 @@
+using Microsoft.EntityFrameworkCore;
 using OdontoManage.Core.Interfaces;
 using OdontoManage.Core.Models;
 using OdontoManage.Infrastructure.Data;
@@ -10,6 +11,7 @@ public class PatientRepository : GenericRepository<Patient>, IPatientRepository
 
     public Patient? GetPatientByCpf(string cpf)
     {
-        return (_dbContext.Patients ?? throw new InvalidOperationException()).FirstOrDefault(x => x.Cpf == cpf);
+        return (_dbContext.Patients ?? throw new InvalidOperationException())
+            .FirstOrDefault(x => x.Cpf == cpf);
     }
 }

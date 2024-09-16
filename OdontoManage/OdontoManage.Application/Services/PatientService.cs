@@ -1,4 +1,5 @@
 using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using OdontoManage.Application.Interfaces;
 using OdontoManage.Application.Models.DTOs;
