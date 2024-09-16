@@ -33,6 +33,14 @@ public class PatientController(IPatientService patientService) : ControllerBase
       var response = patientService.GetByCpf(cpf);
       return Ok(response);
    }
+   
+   [HttpGet("{id}")]
+   [Authorize]
+   public ActionResult<ItemDto> Get(Guid id)
+   {
+      var response = patientService.GetById(id);
+      return Ok(response);
+   }
 
    [HttpGet]
    [Authorize]
