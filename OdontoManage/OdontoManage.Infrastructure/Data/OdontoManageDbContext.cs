@@ -44,6 +44,7 @@ public class OdontoManageDbContext : DbContext
         modelBuilder.Entity<Patient>()
             .HasOne(p => p.Address)
             .WithOne()
+            .HasForeignKey<Address>(a => a.Id)
             .OnDelete(DeleteBehavior.Restrict);
             
 
