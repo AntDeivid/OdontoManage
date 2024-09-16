@@ -148,6 +148,9 @@ builder.Services.AddScoped<IExpenseService, ExpenseService>();
 builder.Services.AddScoped<IDentistRepository, DentistRepository>();
 builder.Services.AddScoped<IDentistService, DentistService>();
 
+builder.Services.AddScoped<IClinicalTreatmentRepository, ClinicalTreatmentRepository>();
+builder.Services.AddScoped<IClinicalTreatmentService, ClinicalTreatmentService>();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
