@@ -16,6 +16,7 @@ public class OdontoManageDbContext : DbContext
     public DbSet<Revenue>? Revenues { get; set; }
     public DbSet<Address>? Addresses { get; set; }
     public DbSet<Item>? Stocks { get; set; }
+    public DbSet<Expense> Expenses { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -46,23 +47,5 @@ public class OdontoManageDbContext : DbContext
             .WithOne()
             .HasForeignKey<Address>(a => a.Id)
             .OnDelete(DeleteBehavior.Restrict);
-            
-
-        // Configurações adicionais
-        modelBuilder.Entity<Patient>()
-            .Property(p => p.BirthDay)
-            .HasConversion(v => v.ToDateTime(TimeOnly.MinValue), v => DateOnly.FromDateTime(v));
-            
-        modelBuilder.Entity<Treatment>()
-            .Property(t => t.InstallmentDueDate)
-            .HasConversion(v => v.ToDateTime(TimeOnly.MinValue), v => DateOnly.FromDateTime(v));
-
-        modelBuilder.Entity<Expense>()
-            .Property(e => e.InstallmentDueDate)
-            .HasConversion(v => v.ToDateTime(TimeOnly.MinValue), v => DateOnly.FromDateTime(v));
-            
-        modelBuilder.Entity<Revenue>()
-            .Property(r => r.InstallmentDueDate)
-            .HasConversion(v => v.ToDateTime(TimeOnly.MinValue), v => DateOnly.FromDateTime(v));
     }
 }

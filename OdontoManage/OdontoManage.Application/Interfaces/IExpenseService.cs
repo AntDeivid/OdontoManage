@@ -4,7 +4,7 @@ namespace OdontoManage.Application.Interfaces;
 
 public interface IExpenseService
 {
-    ExpenseDto Create(ExpenseDto expenseDto);
+    ExpenseDto Create(ExpenseCreateDto expenseDto);
     List<ExpenseDto> GetAllPaged(int page, int pageSize);
     ExpenseDto Update(Guid id, ExpenseDto expenseDto);
     void Delete(Guid id);

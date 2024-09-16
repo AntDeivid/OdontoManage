@@ -1,9 +1,14 @@
+using System.Net.Mime;
 using Microsoft.AspNetCore.Mvc;
 using OdontoManage.Application.Interfaces;
 using OdontoManage.Application.Models.DTOs;
 
 namespace OdontoManage.API.Controllers;
 
+[Route("treatments")]
+[Produces(MediaTypeNames.Application.Json)]
+[Consumes(MediaTypeNames.Application.Json)]
+[ApiController]
 public class TreatmentController : ControllerBase
 {
     
