@@ -41,11 +41,24 @@ public class OdontoManageDbContext : DbContext
             .HasOne(t => t.Dentist)
             .WithMany()
             .OnDelete(DeleteBehavior.Restrict);
-
+        
         modelBuilder.Entity<Patient>()
             .HasOne(p => p.Address)
             .WithOne()
             .HasForeignKey<Address>(a => a.Id)
             .OnDelete(DeleteBehavior.Restrict);
+        
+        modelBuilder.Entity<Patient>()
+            .Property(p => p.Document)
+            .IsRequired(false);
+
+        modelBuilder.Entity<Patient>()
+            .Property(p => p.Cpf)
+            .IsRequired(false);
+
+        modelBuilder.Entity<Patient>()
+            .Property(p => p.Rg)
+            .IsRequired(false);
+
     }
 }

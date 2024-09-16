@@ -34,7 +34,7 @@ public class ItemController (IItemService service) : ControllerBase
     
     [HttpGet("{id}")]
     [Authorize]
-    public ActionResult<ItemDto> Get([FromQuery] [Required] Guid id)
+    public ActionResult<ItemDto> Get(Guid id)
     {
         var response = service.GetById(id);
         return Ok(response);
