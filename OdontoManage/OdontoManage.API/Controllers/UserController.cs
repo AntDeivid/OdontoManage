@@ -89,6 +89,6 @@ public class UserController(IUserService userService) : ControllerBase
     public ActionResult Delete(string username)
     {
         userService.Delete(username);
-        return NoContent();
+        return Ok();
     }
 }

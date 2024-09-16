@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using OdontoManage.Infrastructure.Data;
@@ -11,9 +12,11 @@ using OdontoManage.Infrastructure.Data;
 namespace OdontoManage.Infrastructure.Migrations
 {
     [DbContext(typeof(OdontoManageDbContext))]
-    partial class OdontoManageDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240910005957_relacoes")]
+    partial class relacoes
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -34,9 +37,6 @@ namespace OdontoManage.Infrastructure.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<double>("DefaultValue")
-                        .HasColumnType("double precision");
-
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasColumnType("text");
@@ -47,6 +47,9 @@ namespace OdontoManage.Infrastructure.Migrations
 
                     b.Property<DateTime>("UpdatedAt")
                         .HasColumnType("timestamp with time zone");
+
+                    b.Property<double>("Value")
+                        .HasColumnType("double precision");
 
                     b.HasKey("Id");
 
@@ -122,8 +125,8 @@ namespace OdontoManage.Infrastructure.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("text");
 
-                    b.Property<DateTime>("InstallmentDueDate")
-                        .HasColumnType("timestamp with time zone");
+                    b.Property<DateOnly>("InstallmentDueDate")
+                        .HasColumnType("date");
 
                     b.Property<string>("Observation")
                         .HasColumnType("text");
@@ -173,8 +176,8 @@ namespace OdontoManage.Infrastructure.Migrations
                     b.Property<int>("Age")
                         .HasColumnType("integer");
 
-                    b.Property<DateTime>("BirthDay")
-                        .HasColumnType("timestamp with time zone");
+                    b.Property<DateOnly>("BirthDay")
+                        .HasColumnType("date");
 
                     b.Property<string>("Cpf")
                         .HasColumnType("text");
@@ -222,8 +225,8 @@ namespace OdontoManage.Infrastructure.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<DateTime>("InstallmentDueDate")
-                        .HasColumnType("timestamp with time zone");
+                    b.Property<DateOnly>("InstallmentDueDate")
+                        .HasColumnType("date");
 
                     b.Property<string>("Observation")
                         .HasColumnType("text");
@@ -259,15 +262,6 @@ namespace OdontoManage.Infrastructure.Migrations
                     b.Property<Guid>("DentistId")
                         .HasColumnType("uuid");
 
-                    b.Property<DateTime>("InstallmentDueDate")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<bool>("Paid")
-                        .HasColumnType("boolean");
-
-                    b.Property<Guid>("PatientId")
-                        .HasColumnType("uuid");
-
                     b.Property<int>("Plan")
                         .HasColumnType("integer");
 
@@ -291,8 +285,6 @@ namespace OdontoManage.Infrastructure.Migrations
                     b.HasIndex("ClinicalTreatmentId");
 
                     b.HasIndex("DentistId");
-
-                    b.HasIndex("PatientId");
 
                     b.HasIndex("RevenueId");
 
@@ -340,7 +332,7 @@ namespace OdontoManage.Infrastructure.Migrations
                     b.HasOne("OdontoManage.Core.Models.Patient", "Patient")
                         .WithMany()
                         .HasForeignKey("PatientId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("Patient");
@@ -360,12 +352,6 @@ namespace OdontoManage.Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("OdontoManage.Core.Models.Patient", "Patient")
-                        .WithMany()
-                        .HasForeignKey("PatientId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
                     b.HasOne("OdontoManage.Core.Models.Revenue", null)
                         .WithMany("Treatments")
                         .HasForeignKey("RevenueId")
@@ -374,8 +360,6 @@ namespace OdontoManage.Infrastructure.Migrations
                     b.Navigation("ClinicalTreatment");
 
                     b.Navigation("Dentist");
-
-                    b.Navigation("Patient");
                 });
 
             modelBuilder.Entity("OdontoManage.Core.Models.Revenue", b =>
