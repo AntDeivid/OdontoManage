@@ -23,6 +23,34 @@ public class PatientService : IPatientService
         _addressRepository = addressRepository;
     }
 
+    // public PatientDto Create(PatientCreateDto patient)
+    // {
+    //     patient.Cpf ??= "";
+    //     var exist = _repository.GetPatientByCpfWithAddress(patient.Cpf);
+    //     if (exist != null)
+    //     {
+    //         throw new Exception("Patient already exists");
+    //     }
+    //
+    //     if (patient.IsForeign)
+    //     {
+    //         patient.Cpf = null;
+    //         patient.Rg = null;
+    //     }
+    //     else
+    //     {
+    //         patient.Document = null;
+    //     }
+    //     
+    //     var patientEntity = _mapper.Map<Patient>(patient);
+    //     patientEntity.BirthDay = new DateOnly(patient.Birthday.Year, patient.Birthday.Month, patient.Birthday.Day);
+    //     var entity = _mapper.Map<Address>(patient.Address);
+    //     var createdAddress = _addressRepository.Save(entity);
+    //     patientEntity.Address = createdAddress;
+    //     var createdPatient = _repository.Save(patientEntity);
+    //     return _mapper.Map<PatientDto>(createdPatient);
+    // }
+    
     public PatientDto Create(PatientCreateDto patient)
     {
         patient.Cpf ??= "";
@@ -41,15 +69,19 @@ public class PatientService : IPatientService
         {
             patient.Document = null;
         }
-        
+
         var patientEntity = _mapper.Map<Patient>(patient);
         patientEntity.BirthDay = new DateOnly(patient.Birthday.Year, patient.Birthday.Month, patient.Birthday.Day);
-        var entity = _mapper.Map<Address>(patient.Address);
-        var createdAddress = _addressRepository.Save(entity);
-        patientEntity.Address = createdAddress;
+
+        // 1. Salvar o paciente primeiro
         var createdPatient = _repository.Save(patientEntity);
+
+        // 2. Depois, associar e salvar o endereço
+        var addressEntity = _mapper.Map<Address>(patient.Address);
+        var createdAddress = _addressRepository.Save(addressEntity);
         return _mapper.Map<PatientDto>(createdPatient);
     }
+
 
     public PatientDto GetById(Guid id)
     {
