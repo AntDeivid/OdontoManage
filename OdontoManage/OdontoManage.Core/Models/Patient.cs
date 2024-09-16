@@ -26,11 +26,12 @@ namespace OdontoManage.Core.Models
         public bool IsForeign { get; set; }
         
         [Required]
-        public string Address { get; set; }
-        
         public string? Document { get; set; }
         
         [Required]
         public DateOnly BirthDay { get; set; }
+        
+        [Required]
+        public Address Address { get; set; }
     }
 }

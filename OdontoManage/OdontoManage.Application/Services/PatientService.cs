@@ -85,7 +85,11 @@ public class PatientService : IPatientService
         }
         existing.Name = patient.Name;
         existing.Age = patient.Age;
-        existing.Address = patient.Address;
+        existing.Address.Street = patient.Address.Street;
+        existing.Address.City = patient.Address.City;
+        existing.Address.State = patient.Address.State;
+        existing.Address.ZipCode = patient.Address.ZipCode;
+        existing.Address.Neighborhood = patient.Address.Neighborhood;
         existing.Phone = patient.Phone;
         existing.Gender = patient.Gender;
         existing.IsForeign = patient.IsForeign;
