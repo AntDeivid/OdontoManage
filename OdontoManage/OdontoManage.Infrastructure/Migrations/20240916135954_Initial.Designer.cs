@@ -12,7 +12,7 @@ using OdontoManage.Infrastructure.Data;
 namespace OdontoManage.Infrastructure.Migrations
 {
     [DbContext(typeof(OdontoManageDbContext))]
-    [Migration("20240916032945_Initial")]
+    [Migration("20240916135954_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -251,7 +251,6 @@ namespace OdontoManage.Infrastructure.Migrations
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Document")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<int>("Gender")

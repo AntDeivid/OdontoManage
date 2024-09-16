@@ -87,7 +87,7 @@ namespace OdontoManage.Infrastructure.Migrations
                     Phone = table.Column<string>(type: "text", nullable: false),
                     Gender = table.Column<int>(type: "integer", nullable: false),
                     IsForeign = table.Column<bool>(type: "boolean", nullable: false),
-                    Document = table.Column<string>(type: "text", nullable: false),
+                    Document = table.Column<string>(type: "text", nullable: true),
                     BirthDay = table.Column<DateOnly>(type: "date", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     UpdatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
