@@ -1,4 +1,5 @@
 using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using OdontoManage.Application.Interfaces;
 using OdontoManage.Application.Models.DTOs;
@@ -14,18 +15,18 @@ public class PatientService : IPatientService
     private readonly IMapper _mapper; 
     private readonly ILogger<PatientService> _logger;
 
-    public PatientService(IPatientRepository repository, IMapper mapper, ILogger<PatientService> logger)
+    public PatientService(IPatientRepository repository, IMapper mapper, ILogger<PatientService> logger, IAddressRespository addressRepository)
     {
         _repository = repository;
         _mapper = mapper;
         _logger = logger;
+        _addressRepository = addressRepository;
     }
 
     public PatientDto Create(PatientCreateDto patient)
     {
-        Console.WriteLine("entrou no service");
-        var exist = _repository.GetPatientByCpf(patient.Cpf);
-        Console.WriteLine("passou do getPatientByCpf");
+        patient.Cpf ??= "";
+        var exist = _repository.GetPatientByCpfWithAddress(patient.Cpf);
         if (exist != null)
         {
             throw new Exception("Patient already exists");
@@ -43,27 +44,16 @@ public class PatientService : IPatientService
         
         var patientEntity = _mapper.Map<Patient>(patient);
         patientEntity.BirthDay = new DateOnly(patient.Birthday.Year, patient.Birthday.Month, patient.Birthday.Day);
-        Console.WriteLine("passou do map");
-        var createdPatient = _repository.Save(patientEntity);
-        Console.WriteLine("passou do save");
-        
-        var exist_address = _addressRepository.GetAddressByCode(patient.Address.ZipCode);
-
-        if (exist_address != null)
-        {
-            throw new Exception($"Address already exists");
-        }
-        
         var entity = _mapper.Map<Address>(patient.Address);
-        
         var createdAddress = _addressRepository.Save(entity);
-        
+        patientEntity.Address = createdAddress;
+        var createdPatient = _repository.Save(patientEntity);
         return _mapper.Map<PatientDto>(createdPatient);
     }
 
     public PatientDto GetById(Guid id)
     {
-        var patient = _repository.GetById(id);
+        var patient = _repository.GetPatientByIdWithAddress(id);
         if (patient == null)
         {
             throw new Exception($"Patient not found: {id}");
@@ -73,7 +63,7 @@ public class PatientService : IPatientService
 
     public PatientDto GetByCpf(string cpf)
     {
-        var exits = _repository.GetPatientByCpf(cpf);
+        var exits = _repository.GetPatientByCpfWithAddress(cpf);
 
         if (exits == null)
         {
@@ -85,13 +75,13 @@ public class PatientService : IPatientService
 
     public List<PatientDto> GetAll()
     {
-        var patients = _repository.GetAll();
-        return _mapper.Map<List<PatientDto>>(patients);
+        var patients = _repository.GetAll().Include(p => p.Address).ToList();
+        return _mapper.Map<List<PatientDto>>(patients).ToList();
     }
 
     public PatientDto Update(Guid id, PatientUpdateDto patient)
     {
-        var existing = _repository.GetById(id);
+        var existing = _repository.GetPatientByIdWithAddress(id);
         if (existing == null)
         {
             throw new Exception($"Patient not found: {id}");
@@ -140,11 +130,12 @@ public class PatientService : IPatientService
 
     public void Delete(Guid id)
     {
-        var existing = _repository.GetById(id);
+        var existing = _repository.GetPatientByIdWithAddress(id);
         if (existing == null)
         {
             throw new Exception($"Patient not found: {id}");
         }
+        _addressRepository.Delete(existing.Address.Id);
         _repository.Delete(id);
     }
 }

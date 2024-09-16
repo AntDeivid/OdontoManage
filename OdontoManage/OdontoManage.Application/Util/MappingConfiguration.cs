@@ -13,12 +13,6 @@ public class MappingConfiguration : Profile
 
         CreateMap<UserCreateDto, User>();
 
-        CreateMap<Patient, PatientDto>()
-            .ReverseMap();
-
-        CreateMap<PatientCreateDto, Patient>()
-            .ForMember(destinationMember => destinationMember.BirthDay, opt => opt.Ignore());
-        
         CreateMap<Dentist, DentistDto>()
             .ReverseMap();
 
@@ -44,9 +38,17 @@ public class MappingConfiguration : Profile
 
         CreateMap<Address, AddressDto>().ReverseMap();
         
+        
         CreateMap<Item, ItemDto>().ReverseMap();
         
         // Mapeamento entre PatientCreateDto e Patient
+        CreateMap<Patient, PatientDto>()
+            .ForMember(dest => dest.Address, opt => opt.MapFrom(src => src.Address))
+            .ReverseMap();
+
+        CreateMap<PatientCreateDto, Patient>()
+            .ForMember(destinationMember => destinationMember.BirthDay, opt => opt.Ignore());
+        
         CreateMap<PatientCreateDto, Patient>()
             .ForMember(dest => dest.Address, opt => opt.MapFrom(src => src.Address))
             .ForMember(dest => dest.BirthDay, opt => opt.Ignore());

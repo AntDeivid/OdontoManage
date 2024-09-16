@@ -1,3 +1,4 @@
+using Microsoft.EntityFrameworkCore;
 using OdontoManage.Core.Interfaces;
 using OdontoManage.Core.Models;
 using OdontoManage.Infrastructure.Data;
@@ -13,6 +14,7 @@ public class TreatmentRepository : GenericRepository<Treatment>, ITreatmentRepos
     {
         return _dbContext.Treatments!
             .Where(t => t.Patient.Id == patientId)
+            // .Include(p => p.U)
             .Skip((page - 1) * pageSize)
             .Take(pageSize);
     }
