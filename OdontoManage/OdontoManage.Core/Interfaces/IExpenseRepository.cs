@@ -4,5 +4,5 @@ namespace OdontoManage.Core.Interfaces;
 
 public interface IExpenseRepository : IGenericRepository<Expense>
 {
-    
+    public double GetTotalNotPaied();
 }

@@ -22,35 +22,6 @@ public class PatientService : IPatientService
         _logger = logger;
         _addressRepository = addressRepository;
     }
-
-    // public PatientDto Create(PatientCreateDto patient)
-    // {
-    //     patient.Cpf ??= "";
-    //     var exist = _repository.GetPatientByCpfWithAddress(patient.Cpf);
-    //     if (exist != null)
-    //     {
-    //         throw new Exception("Patient already exists");
-    //     }
-    //
-    //     if (patient.IsForeign)
-    //     {
-    //         patient.Cpf = null;
-    //         patient.Rg = null;
-    //     }
-    //     else
-    //     {
-    //         patient.Document = null;
-    //     }
-    //     
-    //     var patientEntity = _mapper.Map<Patient>(patient);
-    //     patientEntity.BirthDay = new DateOnly(patient.Birthday.Year, patient.Birthday.Month, patient.Birthday.Day);
-    //     var entity = _mapper.Map<Address>(patient.Address);
-    //     var createdAddress = _addressRepository.Save(entity);
-    //     patientEntity.Address = createdAddress;
-    //     var createdPatient = _repository.Save(patientEntity);
-    //     return _mapper.Map<PatientDto>(createdPatient);
-    // }
-    
     public PatientDto Create(PatientCreateDto patient)
     {
         patient.Cpf ??= "";

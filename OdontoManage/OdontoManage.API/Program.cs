@@ -160,6 +160,13 @@ builder.Services.AddScoped<ITreatmentService, TreatmentService>();
 builder.Services.AddScoped<IAddressRespository, AddressRepository>();
 builder.Services.AddScoped<IAddressService, AddressService>();
 
+builder.Services.AddScoped<IFinancialService, FinancialService>();
+builder.Services.AddScoped<IPatientFinancialService, PatientFinancialService>();
+
+builder.Services.AddScoped<IRevenueRepository, RevenueRepository>();
+builder.Services.AddScoped<IRevenueService, RevenueService>();
+
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
