@@ -166,6 +166,8 @@ builder.Services.AddScoped<IPatientFinancialService, PatientFinancialService>();
 builder.Services.AddScoped<IRevenueRepository, RevenueRepository>();
 builder.Services.AddScoped<IRevenueService, RevenueService>();
 
+builder.Services.AddScoped<ISchedulingRepository, SchedulingRepository>();
+builder.Services.AddScoped<ISchedulingService, SchedulingService>();
 
 var app = builder.Build();
 

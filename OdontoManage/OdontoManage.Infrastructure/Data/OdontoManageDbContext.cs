@@ -17,6 +17,7 @@ public class OdontoManageDbContext : DbContext
     public DbSet<Address>? Addresses { get; set; }
     public DbSet<Item>? Stocks { get; set; }
     public DbSet<Expense> Expenses { get; set; }
+    public DbSet<Scheduling> Schedules { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -46,6 +47,16 @@ public class OdontoManageDbContext : DbContext
             .HasOne(p => p.Address)
             .WithOne()
             .OnDelete(DeleteBehavior.Cascade);
+        
+        modelBuilder.Entity<Scheduling>()
+            .HasOne(s => s.Patient)
+            .WithMany()
+            .OnDelete(DeleteBehavior.Restrict);
+
+        modelBuilder.Entity<Scheduling>()
+            .HasOne(s => s.Dentist)
+            .WithMany()
+            .OnDelete(DeleteBehavior.Restrict);
         
         modelBuilder.Entity<Patient>()
             .Property(p => p.Document)

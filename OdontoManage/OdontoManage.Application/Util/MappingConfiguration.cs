@@ -71,5 +71,15 @@ public class MappingConfiguration : Profile
 
         CreateMap<ClinicalTreatment, ClinicalTreatmentDto>()
             .ReverseMap();
+
+        CreateMap<SchedulingCreateDto, Scheduling>()
+            .ForMember(destinationMember => destinationMember.Date, opt => opt.Ignore());
+
+        CreateMap<Scheduling, SchedulingDto>()
+            .ForMember(destinationMember => destinationMember.PatientId, opt => opt.MapFrom(src => src.Patient.Id))
+            .ForMember(destinationMember => destinationMember.DentistId, opt => opt.MapFrom(src => src.Dentist.Id))
+            .ReverseMap()
+            .ForMember(src => src.Dentist, opt => opt.Ignore())
+            .ForMember(src => src.Patient, opt => opt.Ignore());
     }
 }
